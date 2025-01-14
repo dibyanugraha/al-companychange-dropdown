@@ -2,15 +2,27 @@ pageextension 50090 "BusManRoleCntrExt_DSK" extends "Business Manager Role Cente
 {
     layout
     {
-        addlast(rolecenter)
+        addfirst(rolecenter)
         {
             part(ChangeCompanyDropdown; ChangeCompanyDropdownPart_DSK)
             {
                 Caption = ' ';
                 ApplicationArea = All;
-                Visible = true;
+                Visible = not IsLoaded;
             }
         }
     }
 
+    trigger OnOpenPage()
+    begin
+        IsLoaded := false;
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        IsLoaded := true;
+    end;
+
+    var
+        IsLoaded: Boolean;
 }
